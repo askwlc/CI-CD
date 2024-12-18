@@ -6,6 +6,17 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: library_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -28,9 +39,17 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run migrate
+        env:
+          NAME: library_db
+          USER: postgres
+          PASSWORD: postgres
+          HOST: localhost
         run: python manage.py migrate
 
       - name: Run tests
+        env:
+          NAME: library_db
+          USER: postgres
+          PASSWORD: postgres
+          HOST: localhost
         run: python manage.py test
-
-
