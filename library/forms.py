@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 class AuthorForm(forms.ModelForm):
     class Meta:
         model = Author
-        fields = ['first_name', 'last_name', 'birth_date',]
+        fields = ['first_name', 'last_name', 'birth_date', ]
 
     def __init__(self, *args, **kwargs):
         super(AuthorForm, self).__init__(*args, **kwargs)
@@ -31,14 +31,15 @@ class AuthorForm(forms.ModelForm):
         first_name = cleaned_data.get('first_name')
         last_name = cleaned_data.get('last_name')
 
-        if Author.objects.filter(first_name=first_name, last_name=last_name).exists():
+        if Author.objects.filter(first_name=first_name,
+                                 last_name=last_name).exists():
             raise ValidationError('Автор с таким именем и фамилией уже существует.')
 
 
 class BookForm(forms.ModelForm):
     class Meta:
         model = Book
-        fields = ['title', 'publication_date', 'author',]
+        fields = ['title', 'publication_date', 'author', ]
 
     def __init__(self, *args, **kwargs):
         super(BookForm, self).__init__(*args, **kwargs)
