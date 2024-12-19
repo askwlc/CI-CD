@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect
 from .models import Author, Book
 from .forms import AuthorForm, BookForm
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
